@@ -3,11 +3,12 @@ import { Card, CardImg,CardText, CardBody,
     CardTitle } from 'reactstrap';
 
 
-class Dishdetail extends Component{
+
 
     
 
-    renderDish(dish){
+     function RenderDish(props){
+         const dish=props.dish
 return(<Card>
                 <CardImg top src={dish.image} alt={dish.name} />
                 <CardBody onClick={()=>{this.setState({comments: dish.comments})}}>
@@ -16,7 +17,8 @@ return(<Card>
                 </CardBody>
             </Card>)
     }
-    renderComments(comments){
+   function RenderComments(props){
+       const comments=props.comments
        if(comments){ 
            return(
                <div >
@@ -34,19 +36,21 @@ return(<Card>
 
     }
 
-    render(){
-        var dish=this.props.dish
+    const Dishdetail=(props)=>{
+        var dish=props.dish
 
         if (dish != null)
         return(
             <div className='container'>
             <div className='row'>
             <div className="col-12 col-md-5 m-1">
-            {this.renderDish(dish)}
+            
+            <RenderDish dish={dish}/>
             </div>
             <div className="col-12 col-md-5 m-1">
 
-                {this.renderComments(dish.comments)}
+                
+                <RenderComments comments={dish.comments}/>
             </div>
             </div>
             </div>
@@ -56,6 +60,6 @@ return(<Card>
             <div></div>
         );
     }
-}
+
 
 export default Dishdetail
