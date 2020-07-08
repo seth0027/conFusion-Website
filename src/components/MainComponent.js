@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent'
+import AboutUs from './AboutComponent'
 
 import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
+
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -52,6 +54,7 @@ const DishWithId = ({match}) => {
 <Route exact path='/menu' component={()=> <Menu dishes={this.state.dishes}/>}/>
     <Route exact path='/contactus' component={Contact}/>
      <Route path='/menu/:dishId' component={DishWithId}/>
+     <Route exact path='/aboutus' component={()=> <AboutUs leaders={this.state.leaders}/>}/>
       <Redirect to='/home'/>
 
       
