@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { Card, CardImg,CardText, CardBody,
-    CardTitle } from 'reactstrap';
-
+    CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
+import {Link} from 'react-router-dom'
 
 
 
@@ -11,7 +11,7 @@ import { Card, CardImg,CardText, CardBody,
          const dish=props.dish
 return(<Card>
                 <CardImg top src={dish.image} alt={dish.name} />
-                <CardBody onClick={()=>{this.setState({comments: dish.comments})}}>
+                <CardBody >
                   <CardTitle>{dish.name}</CardTitle>
                   <CardText>{dish.description}</CardText>
                 </CardBody>
@@ -38,10 +38,22 @@ return(<Card>
 
     const Dishdetail=(props)=>{
         var dish=props.dish
+        var comments=props.comments
 
         if (dish != null)
         return(
             <div className='container'>
+                <div className="row">
+                    <Breadcrumb>
+
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>                
+                </div>
             <div className='row'>
             <div className="col-12 col-md-5 m-1">
             
@@ -50,7 +62,7 @@ return(<Card>
             <div className="col-12 col-md-5 m-1">
 
                 
-                <RenderComments comments={dish.comments}/>
+                <RenderComments comments={comments}/>
             </div>
             </div>
             </div>

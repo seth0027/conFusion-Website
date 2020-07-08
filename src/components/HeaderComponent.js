@@ -11,13 +11,14 @@ class Header extends Component {
   }
 
  toggleNav=()=>{
-    this.setState((prev)=>({isNavOpen : !prev}))
+    this.setState((prev)=>({isNavOpen : !prev.isNavOpen}))
+  
   }
     render() {
     return(
         <div>
             <Navbar dark expand="md">
-                <div className="container">
+                {/* <div className="container"> */}
                     <NavbarToggler onClick={this.toggleNav} />
                     <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
                     <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -36,7 +37,7 @@ class Header extends Component {
                         </NavItem>
                         </Nav>
                     </Collapse>
-                </div>
+                {/* </div> */}
             </Navbar>
             <Jumbotron>
                 <div className="container">
