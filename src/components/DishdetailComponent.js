@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { Card, CardImg,CardText, CardBody,
     CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
 import {Link} from 'react-router-dom'
-
+import CommentForm from './CommentFormComponent'
 
 
     
@@ -26,6 +26,8 @@ return(<Card>
                    <ul className='list-unstyled'>
            {comments.map((com)=>(<li key={com.id}>{com.comment}<ul><li>{`${com.author} , ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}`}</li></ul></li>))}
                    </ul>
+
+                   <CommentForm/>
                </div>
            )
        }
