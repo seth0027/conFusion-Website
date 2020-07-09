@@ -8,6 +8,7 @@ import {Control,LocalForm,Errors} from 'react-redux-form'
 const required=(val)=>val && val.length
 const maxLength=(len)=>(val)=> val && val.length<=len 
 const minLength=(len)=>(val)=> val && val.length>=len
+const isNumber=(val)=>!isNaN(val)
 
 
 class CommentForm extends Component{
@@ -27,7 +28,7 @@ class CommentForm extends Component{
       }
 
       handleSubmit=(values)=>{
-          alert(`Current state is ${JSON.stringify(values)}`)
+        this.props.addComment(this.props.dishId,values.rating,values.name,values.comment)
       }
 
       
@@ -45,13 +46,20 @@ class CommentForm extends Component{
                         <Label htmlFor="rating">Rating</Label>
                         
                     </Row>
-                    <Row><Control.select name="rating" model='.rating' id='.rating' className="form-control" >
-                            <option >1</option>
+                    <Row><Control.select name="rating" model='.rating' id='.rating' className="form-control" validators={{isNumber}}>
+                            <option>Give Ratings</option>
+                            <option>1</option>
                             <option >2</option>
                             <option >3</option>
                             <option >4</option>
                             <option >5</option>
-                                </Control.select></Row>
+                                </Control.select>
+                                <Errors model='.rating'
+                                show='touched'
+                                className='text-danger'
+                                messages={{isNumber: "Please select a rating"}}/>
+                                
+                                </Row>
                     <Row className='form-group'>
                         <Label htmlFor="name">Your Name</Label>
                         </Row>
@@ -68,7 +76,7 @@ class CommentForm extends Component{
                          model='.comment' id="comment" name="comment" rows='6'
                          className="form-control"  />
                     </Row>
-                    <Button type="submit" value="submit" color="primary">Login</Button>
+                    <Button type="submit" value="submit" color="primary">Submit</Button>
                 </LocalForm>
                 
             

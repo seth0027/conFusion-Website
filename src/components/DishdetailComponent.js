@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React from 'react'
 import { Card, CardImg,CardText, CardBody,
     CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
 import {Link} from 'react-router-dom'
@@ -27,7 +27,7 @@ return(<Card>
            {comments.map((com)=>(<li key={com.id}>{com.comment}<ul><li>{`${com.author} , ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}`}</li></ul></li>))}
                    </ul>
 
-                   <CommentForm/>
+                   <CommentForm dishId={props.dishId} addComment={props.addComment}/>
                </div>
            )
        }
@@ -64,7 +64,11 @@ return(<Card>
             <div className="col-12 col-md-5 m-1">
 
                 
-                <RenderComments comments={comments}/>
+                <RenderComments comments={comments}
+                
+                dishId={props.dish.id}
+                
+                addComment={props.addComment}/>
             </div>
             </div>
             </div>
