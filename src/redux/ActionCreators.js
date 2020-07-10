@@ -16,14 +16,39 @@ export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));
 
-    fetch(`${baseUrl}dishes`).then(response=>response.json()).then(data=>dispatch(addDishes(data)))
+    fetch(`${baseUrl}dishes`).then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    .then(response=>response.json()).then(data=>dispatch(addDishes(data))).catch(error => dispatch(dishesFailed(error.message)));
 }
 
 export const fetchPromos = () => (dispatch) => {
 
     dispatch(promosLoading(true));
 
-    fetch(`${baseUrl}promotions`).then(response=>response.json()).then(data=>dispatch(addPromotions(data)))
+    fetch(`${baseUrl}promotions`).then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      }).then(response=>response.json()).then(data=>dispatch(addPromotions(data))).catch(error => dispatch(promosFailed(error.message)));
 }
 
 
@@ -31,7 +56,19 @@ export const fetchComments = () => (dispatch) => {
 
     
 
-    fetch(`${baseUrl}comments`).then(response=>response.json()).then(data=>dispatch(addComments(data)))
+    fetch(`${baseUrl}comments`).then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      }).then(response=>response.json()).then(data=>dispatch(addComments(data))).catch(error => dispatch(commentsFailed(error.message)));
 }
 
 
@@ -61,4 +98,16 @@ export const addPromotions = (promos) => ({
 export const addComments= (comments) => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
+});
+
+
+export const promosFailed = (errmess) => ({
+    type: ActionTypes.PROMOS_FAILED,
+    payload: errmess
+});
+
+
+export const commentsFailed = (errmess) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
 });
