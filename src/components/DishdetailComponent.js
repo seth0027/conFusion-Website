@@ -30,7 +30,7 @@ return(<Card>
            {comments.map((com)=>(<li key={com.id}>{com.comment}<ul><li>{`${com.author} , ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}`}</li></ul></li>))}
                    </ul>
 
-                   <CommentForm dishId={props.dishId} addComment={props.addComment}/>
+                   <CommentForm dishId={props.dishId} postComment={props.postComment}/>
                </div>
            )
        }
@@ -90,7 +90,7 @@ return(<Card>
                 
                 dishId={props.dish.id}
                 
-                addComment={props.addComment}/>
+                postComment={props.postComment}/>
             </div>
             </div>
             </div>
