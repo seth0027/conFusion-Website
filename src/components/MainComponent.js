@@ -13,6 +13,7 @@ import {Switch,Route,Redirect,withRouter} from 'react-router-dom'
 import { connect} from 'react-redux'
 import Contact from './ContactComponent';
 import {actions} from 'react-redux-form'
+import {CSSTransition,TransitionGroup} from 'react-transition-group'
 const mapStateToProps= state =>{
   return {
     dishes: state.dishes,
@@ -71,6 +72,9 @@ const DishWithId = ({match}) => {
       
          <div>
          <Header />
+
+         <TransitionGroup>
+           <CSSTransition key={this.props.location.key} classNames='page' timeout={300}>
          <Switch>
 <Route path='/home' component={HomePage}/>
 <Route exact path='/menu' component={()=> <Menu dishes={this.props.dishes}/>}/>
@@ -82,7 +86,8 @@ const DishWithId = ({match}) => {
       
      
       </Switch>
-        
+      </CSSTransition>
+      </TransitionGroup>
         <Footer />
       </div>
      
