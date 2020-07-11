@@ -4,7 +4,7 @@ import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent'
 import AboutUs from './AboutComponent'
 
-import {postComment, fetchDishes, fetchComments, fetchPromos} from '../redux/ActionCreators';
+import {postComment, fetchDishes, fetchComments, fetchPromos,fetchLeaders,postFeedback} from '../redux/ActionCreators';
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -28,6 +28,8 @@ postComment: (dishId, rating, author, comment)=>dispatch(postComment(dishId,rati
 fetchDishes:()=>{dispatch(fetchDishes())},
 fetchComments:()=>dispatch(fetchComments()),
 fetchPromos:()=>dispatch(fetchPromos()),
+fetchLeaders:()=>dispatch(fetchLeaders()),
+postFeedback:(feedback)=>dispatch(postFeedback(feedback)),
 
 resetFeedbackForm: ()=>{ dispatch(actions.reset('feedback'))}
 })
@@ -39,7 +41,7 @@ componentDidMount(){
   this.props.fetchDishes()
   this.props.fetchComments()
   this.props.fetchPromos()
-
+  this.props.fetchLeaders()
 }
 
 
@@ -51,7 +53,10 @@ dishErrMess={this.props.dishes.errMess}
 promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
 promoLoading={this.props.promotions.isLoading}
 promoErrMess={this.props.promotions.errMess}
-leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+  leaderLoading={this.props.leaders.isLoading}
+  leaderErrMess={this.props.leaders.errMess}
+
 />
   
 const DishWithId = ({match}) => {
@@ -78,9 +83,9 @@ const DishWithId = ({match}) => {
          <Switch>
 <Route path='/home' component={HomePage}/>
 <Route exact path='/menu' component={()=> <Menu dishes={this.props.dishes}/>}/>
-    <Route exact path='/contactus' component={()=> <Contact resetFeedbackForm={this.props.resetFeedbackForm}/>}/>
+    <Route exact path='/contactus' component={()=> <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback}/>}/>
      <Route path='/menu/:dishId' component={DishWithId}/>
-     <Route exact path='/aboutus' component={()=> <AboutUs leaders={this.props.leaders}/>}/>
+     <Route exact path='/aboutus' component={()=> <AboutUs leaders={this.props.leaders.leaders}  leadersLoading={this.props.leaders.isLoading} leadersFailed={this.props.leaders.errMess}/>}/>
       <Redirect to='/home'/>
 
       

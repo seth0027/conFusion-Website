@@ -1,15 +1,28 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
+const RenderLeader=({leader,failed,loading})=>{
+if(loading){
 
+    return(<Fade in><div className='col-12 mt-5'><Loading/></div></Fade>)
+}
 
-const RenderLeader=({leader})=>{
+else if(failed){
+
+    return(<Fade in><div><h4>failed</h4></div></Fade>)
+}
+else if(leader){
+
+  
 return(
 <div key={leader.id} className='col-12 mt-5'>
-
+<Fade in>
 <Media tag='li'>
     <Media left middle>
-        <Media object src={leader.image} alt={leader.name}></Media>
+        <Media object src={baseUrl+leader.image} alt={leader.name}></Media>
     </Media>
     <Media body className='ml-5'>
 <Media heading>{leader.name}</Media>
@@ -19,16 +32,20 @@ return(
 
     
 </Media>
+</Fade>
 </div>
 
-)
+)}
+else{
+    return(<div></div>)
+}
 }
 
 function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-           <RenderLeader leader={leader}/>
+           <RenderLeader  key={leader.id} leader={leader} failed={props.leadersFailed}  loading={props.leadersLoading}/>
         );
     });
 
@@ -88,7 +105,9 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
+                        <Stagger in>
                         {leaders}
+                        </Stagger>
                     </Media>
                 </div>
             </div>
